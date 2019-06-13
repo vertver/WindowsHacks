@@ -29,7 +29,7 @@ IsProcessWithAdminPrivilege()
 }
 
 VOID
-RunWithAdminPrivilege(LPWSTR lpCmd)
+RunWithAdminPrivilege()
 {
 	if (!IsProcessWithAdminPrivilege())
 	{
@@ -82,7 +82,17 @@ OpenPr:
 			}
 			else
 			{
-				//#TODO:
+				if (!IsDebuggerPresent())
+				{
+					RunWithAdminPrivilege();
+					printf("The process executing stopped by user\n");
+					_getwch();
+				}
+				else
+				{
+					MessageBoxW(NULL, L"Please, restart your debugger or Visual Studio with admin privileges.", L"Warning", MB_OK | MB_ICONWARNING);
+					ExitProcess(0x7FFFFFFF);
+				}
 			}
 		}
 	}
@@ -102,7 +112,17 @@ OpenPr:
 			}
 			else
 			{
-				//#TODO:
+				if (!IsDebuggerPresent())
+				{
+					RunWithAdminPrivilege();
+					printf("The process executing stopped by user\n");
+					_getwch();
+				}
+				else
+				{
+					MessageBoxW(NULL, L"Please, restart your debugger or Visual Studio with admin privileges.", L"Warning", MB_OK | MB_ICONWARNING);
+					ExitProcess(0x7FFFFFFF);
+				}
 			}
 		}
 	}
